@@ -11,7 +11,6 @@ public class MyProgram
         if (ans.equals("e")){
             System.out.println("Enter a word to encrypt (lowercase): ");
             String encText = input.nextLine();
-            System.out.println(encText);
             System.out.println("Enter the key you want to use (make sure the number of characters in the key and text input match): ");
             String key = input.nextLine();
             String sipher = cipher.encrypt(encText, key);
@@ -36,7 +35,6 @@ public class MyProgram
     }
 }
 
-(Cipher class)
 public class cipher {
     
     public char[][] Alpha = new char[26][26];
@@ -48,7 +46,6 @@ public class cipher {
         for (int i = 0; i < text.length(); i++){
             int val = alpha.indexOf(text.charAt(i));
             int val2 = alpha.indexOf(key.charAt(i));
-            System.out.println(val + " " + val2);
             if (val == 26){
                 cipherText += " ";
             }
