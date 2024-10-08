@@ -1,0 +1,82 @@
+import java.util.Scanner;
+
+public class MyProgram
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println("Would you like to encrypt or decrypy (e or d)?");
+        String ans = input.nextLine();
+        if (ans.equals("e")){
+            System.out.println("Enter a word to encrypt (lowercase): ");
+            String encText = input.nextLine();
+            System.out.println(encText);
+            System.out.println("Enter the key you want to use (make sure the number of characters in the key and text input match): ");
+            String key = input.nextLine();
+            String sipher = cipher.encrypt(encText, key);
+            System.out.println("Your ciphertext is: " + sipher);
+            System.out.println("Decrypt (y or n)? ");
+            String decr = input.nextLine();
+            if (decr.equals("y")){
+                System.out.print("Your decrypted text is: ");
+                System.out.println(cipher.decrypt(sipher, key));
+            }
+            
+        }
+        else{
+            System.out.println("Enter some text to decrypt (lowercase): ");
+            String encText = input.nextLine();
+            System.out.println("Enter the key (make sure the number of characters in the key and text input match): ");
+            String key = input.nextLine();
+            String sipher = cipher.decrypt(encText, key);
+            System.out.println("Your decrypted text is: " + sipher);
+        }
+        
+    }
+}
+
+(Cipher class)
+public class cipher {
+    
+    public char[][] Alpha = new char[26][26];
+    
+    public static String alpha = "abcdefghijklmnopqrstuvwxyz ";
+    
+    public static String encrypt(String text, String key){
+        String cipherText = "";
+        for (int i = 0; i < text.length(); i++){
+            int val = alpha.indexOf(text.charAt(i));
+            int val2 = alpha.indexOf(key.charAt(i));
+            System.out.println(val + " " + val2);
+            if (val == 26){
+                cipherText += " ";
+            }
+            else{
+                int valf = (val + val2) % 26;
+            cipherText += alpha.charAt(valf);
+            }
+            
+        }
+        return cipherText;
+    }
+    
+    public static String decrypt(String cText, String key){
+        String dText = "";
+        for (int i = 0; i < cText.length(); i++){
+            int val = alpha.indexOf(cText.charAt(i));
+            int val2 = alpha.indexOf(key.charAt(i));
+            int valf = (val - val2) % 26;
+            if (valf >= 0){
+                dText += alpha.charAt(valf);
+            }
+            else{
+                valf = -valf;
+                valf = 26 - valf;
+                dText += alpha.charAt(valf);
+            }
+        }
+        return dText;
+    }
+    
+}
