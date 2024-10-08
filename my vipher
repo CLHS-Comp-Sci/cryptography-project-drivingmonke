@@ -1,0 +1,88 @@
+import java.util.Scanner;
+public class MyProgram
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println("Would you like to encode or decode? ");
+        String l = input.nextLine();
+        if (l.equals("encode")){
+            System.out.println("Type in the input(no spaces): ");
+            String inpu = input.nextLine();
+            System.out.println("Type in the key(make sure it matches the characters of the input): ");
+            String key = input.nextLine();
+            String p = cipher.encode(inpu, key);
+            System.out.println("The ciphertext is: " + p);
+            System.out.println("Would you like to decode? (yes, no) ");
+            String h = input.nextLine();
+            if (h.equals("yes")){
+                System.out.println("The decrypted text is: " + cipher.decode(p, key));
+            }
+        }
+        else if (l.equals("decode")){
+            System.out.println("Type in the ciphertext: ");
+            String ciText = input.nextLine();
+            System.out.println("Type in the key: ");
+            String deText = input.nextLine();
+            System.out.println("The decrypted text is: " + cipher.decode(ciText, deText));
+            
+        }
+        
+        
+    }
+}
+
+public class cipher {
+    
+    public static String total = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static String upper = "NOPQRSTUVWXYZ";
+    
+    public static String lower = "abcdefghijklm";
+    
+    public static String encode(String text, String key){
+        String cipherText = "";
+        
+        for (int i = 0; i < text.length(); i++){
+            int x = total.indexOf(text.charAt(i));
+            int y = total.indexOf(key.charAt(i));
+            int dif = (x + y);
+            int as = dif / 52;
+            if (as > 0){
+                dif = dif % 52;
+                cipherText += total.charAt(dif);
+            }
+            else{
+                cipherText += total.charAt(dif);
+            }
+            
+            
+            
+        }
+        return cipherText;
+        
+    }
+    
+    public static String decode(String text, String key){
+        String dec = "";
+        for (int i = 0; i < text.length(); i++){
+            int x = total.indexOf(text.charAt(i));
+            int y = total.indexOf(key.charAt(i));
+            int dif = (x - y);
+            if (dif < 0){
+                dif = -dif;
+                int yt = 52 - dif;
+                dec += total.charAt(yt);
+            }
+            else{
+                dec += total.charAt(dif);
+            }
+            
+        }
+        
+        
+        
+        return dec;
+    }
+    
+}
